@@ -1,28 +1,13 @@
 # Image Background Remover
 
-一个基于 AI 的图片背景去除工具，支持一键上传、自动去背景、下载透明 PNG。
+一个免费的在线图片去背景工具，基于 AI 自动去除图片背景。
 
 ## 技术栈
 
-- **前端**: React + Vite + Tailwind CSS
-- **后端**: Python FastAPI + rembg (U2Net AI 模型)
+- 前端：React 18 + Vite + Tailwind CSS
+- 后端：Python FastAPI + rembg (U2Net)
 
-## 项目结构
-
-```
-image-background-remover/
-├── frontend/          # React 前端
-│   ├── src/
-│   │   ├── App.jsx
-│   │   └── index.css
-│   └── package.json
-├── backend/           # Python FastAPI 后端
-│   ├── main.py
-│   └── requirements.txt
-└── README.md
-```
-
-## 快速启动
+## 快速开始
 
 ### 后端
 
@@ -32,25 +17,31 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+后端启动后访问 http://localhost:8000
+
 ### 前端
 
 ```bash
 cd frontend
+cp .env.example .env
 npm install
 npm run dev
 ```
 
-前端访问：http://localhost:5173  
-后端 API：http://localhost:8000
+前端启动后访问 http://localhost:5173
 
 ## 部署
 
-- 前端：推荐 Vercel / Netlify
-- 后端：推荐 Railway / Render
+- 前端：推荐 [Vercel](https://vercel.com)（免费）
+- 后端：推荐 [Railway](https://railway.app) 或 [Render](https://render.com)（有免费额度）
 
-## 环境变量
+部署后端后，将前端 `.env` 中的 `VITE_API_URL` 改为后端地址。
 
-前端 `.env` 文件：
-```
-VITE_API_URL=https://your-backend-url.com
-```
+## API
+
+### POST /remove-bg
+
+上传图片，返回去背景后的 PNG。
+
+**请求：** `multipart/form-data`，字段名 `file`  
+**响应：** `image/png` 二进制流
